@@ -1,0 +1,32 @@
+name = "deskline-api"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "deskline"
+database_id = "PEGA_AQUI_EL_ID_DE_TU_D1"
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "deskline-media"
+
+[vars]
+ORIGIN = "https://desklineltdcom.netlify.app"   # tu sitio en Netlify (sin "/" final). Si usas dominio propio, cámbialo
+ADMIN_EMAIL = "tu-correo@ejemplo.com"  # cuenta (registrada en la app) que verifica los pagos
+PRICE_PLUS = "18"   # soles por mes
+PRICE_PRO = "36"    # soles por mes
+ITER = "100000"     # iteraciones PBKDF2 (máximo permitido por Cloudflare)
+
+# --- Verificación por código ---
+MAIL_FROM = "no-reply@tudominio.com"   # remitente YA verificado en SendGrid (Sender Authentication)
+TWILIO_ACCOUNT_SID = "ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"   # Twilio > Account Info
+TWILIO_VERIFY_SID = "VAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"     # Twilio > Verify > Services
+SMS_ALLOW = "51"    # códigos de país permitidos para SMS, separados por coma (ej. "51,1,52"). Vacío = todos (riesgo de fraude/costo)
+SMS_DAILY = "200"   # tope de SMS por día
+MAIL_DAILY = "300"  # tope de correos de verificación por día (cuida tu cuota de SendGrid)
+
+# Secretos obligatorios (no los escribas aquí):
+#   npx wrangler secret put PEPPER
+#   npx wrangler secret put SENDGRID_API_KEY
+#   npx wrangler secret put TWILIO_AUTH_TOKEN
